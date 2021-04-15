@@ -27,5 +27,5 @@ L'application peut être émulée directement depuis votre smartphone via l'appl
 
 # Auteurs
 
-[©Tchoow](https://github.com/Tchoow) 
-[©Quentin](https://github.com/quentinsvn)
+[@Tchoow](https://github.com/Tchoow) 
+[@Quentin](https://github.com/quentinsvn)
