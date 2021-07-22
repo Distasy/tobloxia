@@ -4,25 +4,29 @@ import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Icon from 'react-native-vector-icons/AntDesign';
-import { vw, vh, vmin, vmax } from 'react-native-viewport-units-fix';
+import { vw } from 'react-native-viewport-units-fix';
 import * as Animatable from 'react-native-animatable';
 import TextTicker from 'react-native-text-ticker';
+import axios from 'axios';
 
-const GameCard = ({name, id, navigation}) => {
+export default function GameCard(props)
+{
+    const mapName = props.mapName;
+    const mapImg = props.mapImg;
+    const mapVisits = props.mapVisits;
+    const mapLikes = props.mapLikes;
 
-    //let mapId = props.mapId;
-
-    const mapImage = "https://www.roblox.com/asset-thumbnail/image?assetId=" + id + "&width=768&height=432&format=png";
     const width = vw * 75;
     const height = vw * 70;
+
     return (
-        <View style={{ alignItems: "center", width: width, height: height, backgroundColor: "#333333", borderRadius: 20, marginBottom: 20 }}>
+        <View style={{ alignItems: "center", width: width, height: height, backgroundColor: "#333333", borderRadius: 20, marginTop: 20 }}>
             
             <Grid>
                 <Row size={80}>
                     <View style={{ height: "100%", widht: "100%" }}>
                         <Image
-                            source={{ uri: mapImage }}
+                            source={{ uri: 'https://www.roblox.com/asset-thumbnail/image?assetId=' + mapImg + '&width=768&height=432&format=png' }}
                             style={
                                 [styles.image,
                                 {
@@ -59,7 +63,7 @@ const GameCard = ({name, id, navigation}) => {
                                     marqueeDelay={2000}
                                 >
 
-                                    <Text style={[styles.title, { color: "white", fontSize: vw * 4 }]}>{name}</Text>
+                                    <Text style={[styles.title, { color: "white", fontSize: vw * 4 }]}>{mapName}</Text>
                                 </TextTicker>
                             </View>
 
@@ -84,7 +88,7 @@ const GameCard = ({name, id, navigation}) => {
 
                                         <Col >
                                             <View style={{ height: "100%", width: "100%" }}>
-                                                <Text style={[styles.info, { fontSize: vw * 5 }]}>98,2%</Text>
+                                                <Text style={[styles.info, { fontSize: vw * 5 }]}>{mapLikes}</Text>
                                             </View>
                                         </Col>
                                     </Grid>
@@ -110,7 +114,7 @@ const GameCard = ({name, id, navigation}) => {
 
                                         <Col >
                                             <View style={{ height: "100%", width: "100%" }}>
-                                                <Text style={[styles.info, { fontSize: vw * 5 }]}>2,5 k</Text>
+                                                <Text style={[styles.info, { fontSize: vw * 5 }]}>{mapVisits}</Text>
                                             </View>
                                         </Col>
                                     </Grid>
@@ -242,10 +246,10 @@ const styles = StyleSheet.create({
 // ~~~~ Props ~~~~  //
 GameCard.propTypes = {
 
-    // Type
+    // Infos
     mapId: PropTypes.number,
-
-
+    mapName: PropTypes.string,
+    mapImg: PropTypes.number,
+    mapVisits: PropTypes.number,
+    mapLikes: PropTypes.number,
 };
-
-export default GameCard;

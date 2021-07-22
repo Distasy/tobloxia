@@ -8,7 +8,7 @@ const { width } = Dimensions.get('screen');
 const TabBar = ({ state, navigation }) => {
   const [selected, setSelected] = useState('Home');
   const { routes } = state;
-  const renderColor = currentTab => (currentTab === selected ? 'black' : '#fff');
+  const renderColor = currentTab => (currentTab === selected ? '#55efc4' : '#fff');
 
   const { showTabBar } = useTabBar();
 
@@ -71,11 +71,12 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#ff7675',
+    backgroundColor: '#636e72',
     width: '90%',
     borderRadius: 100,
     elevation: 2,
     padding: 10,
+    zIndex: 0
   },
 });
 

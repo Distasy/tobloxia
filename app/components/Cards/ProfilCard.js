@@ -1,36 +1,24 @@
-import React, { Component } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Dimensions, Text } from 'react-native';
+import React, { useRef } from 'react';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Col, Row, Grid } from "react-native-easy-grid";
+import { Col, Grid } from "react-native-easy-grid";
 import { ProgressBar } from 'react-native-paper';
 import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { vw, vh, vmin, vmax } from 'react-native-viewport-units-fix';
+import { vw } from 'react-native-viewport-units-fix';
+import ClaimModal from '../Modals/ClaimModal';
 
 export default function ProfilCard(props) {
-
-    // ~~~~ Importation des props ~~~~  //
-    const vertical = props.vertical;
-    const title = props.title;
-    const desc = props.desc;
-    const img = props.img;
-    const url = props.url;
-    const gradiant = props.gradiant;
-    const lowerPrice = props.lowerPrice;
-
+    let identifiant = props.identifiant;
     let robloxId = props.robloxId;
-
-    const windowWidth = Dimensions.get('window').width;
-    const windowHeight = Dimensions.get('window').height;
-
-
     const robloxAvatar = "https://www.roblox.com/headshot-thumbnail/image?userId=" + robloxId + "&width=420&height=420&format=png";
+    const modalRef = useRef(null);
     const width  = vw * 90;
     const height = vw *  69;
     return (
-            <View style={{ alignItems:"center", width:width, height:height, marginBottom:20, marginTop: 50}}>
-                <View style={{backgroundColor:"#ff7675", borderRadius: 20, height:"100%", width:"100%"}}>
+            <View style={{ alignItems:"center", width:width, height:height, marginBottom:20, marginTop: 20}}>
+                <View style={{backgroundColor:"#636e72", borderRadius: 20, height:"100%", width:"100%"}}>
                     <View style={styles.header}>
                         <Grid>
                             <Col style={{width:"30%"}}>
@@ -65,7 +53,7 @@ export default function ProfilCard(props) {
                             </Col >
 
                             <Col style={{width:"45%", justifyContent:"center", left:"5%"}}>
-                                    <Text style={styles.pseudo}>Tchoow <Icon name="checkcircle" size={18} color="#55efc4" /></Text>
+                                    <Text style={styles.pseudo}>{identifiant} <Icon name="checkcircle" size={18} color="#55efc4" /></Text>
                                     <Text style={styles.grade}>Membre silver</Text>
                             
                             </Col>
@@ -107,8 +95,8 @@ export default function ProfilCard(props) {
 
 
 
-                        <AwesomeButtonRick style={{marginBottom: "3%"}} width={'100%'} textSize={20} textColor={"white"} backgroundColor={"#55efc4"} backgroundDarker={"#00b894"}>Demander un paiement</AwesomeButtonRick>
-
+                        <AwesomeButtonRick onPress={() => modalRef.current.openModal()} style={{marginBottom: '3%'}} width='100%' textSize={20} textColor="white" backgroundColor="#55efc4" backgroundDarker="#00b894">Demander un paiement</AwesomeButtonRick>
+                        <ClaimModal ref={modalRef} />
                     </View>
                 
                 </View>
@@ -118,7 +106,6 @@ export default function ProfilCard(props) {
 
 }
 
-// ~~~~ Style ~~~~  //
 const styles = StyleSheet.create({
     main: {
         height: "100%",
@@ -143,7 +130,7 @@ const styles = StyleSheet.create({
     sold : {
         fontWeight: "bold",
         fontSize:22,
-        color:"#ff7675"
+        color:"#b2bec3"
     },
 
     body: {
@@ -229,11 +216,10 @@ const styles = StyleSheet.create({
 });
 
 
-// ~~~~ Props ~~~~  //
 ProfilCard.propTypes = {
 
     // Type
     robloxId: PropTypes.number,
-
+    identifiant: PropTypes.string,
 
 };

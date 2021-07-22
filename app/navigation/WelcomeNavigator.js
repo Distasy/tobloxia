@@ -1,12 +1,22 @@
-import React, { Component } from 'react'
+import React,{useEffect} from 'react'
 import { Text, StyleSheet, View, Dimensions, TouchableOpacity, SafeAreaView, ImageBackground } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome5 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const image = { uri: 'https://media.discordapp.net/attachments/519799997534044170/821481524011728928/tobloxia_splah_screen3.png?width=320&height=530' }
+const image = { uri: 'https://media.discordapp.net/attachments/519799997534044170/835490890385981460/splashscreenTobloxia.png?width=263&height=468' }
 const screen = Dimensions.get("screen");
 
-const WelcomeNavigator = ({ navigation }) => {
+const WelcomeNavigator = (props) => {
+    const detectLogin= async ()=>{
+        const token = await AsyncStorage.getItem('token')
+            if(token){
+                  props.navigation.replace("Home")
+            }
+      }
+      useEffect(()=>{
+       detectLogin()
+      },[])
     return (
         <SafeAreaView style={styles.container}>
             {/* Header with Linear Gradient */}
@@ -23,7 +33,7 @@ const WelcomeNavigator = ({ navigation }) => {
                         }}
                     />
                     <View style={styles.introContainer}>
-                        <Text style={styles.title}>Tobloxia</Text>
+                        <Text style={styles.title}>ToBloxia</Text>
                         <Text style={styles.subtitle}>Rejoignez la communauté et commencez à gagnez des Robux dès maintenant ! C'est simple et gratuit :D</Text>
                     </View>
                 </ImageBackground>
@@ -35,8 +45,9 @@ const WelcomeNavigator = ({ navigation }) => {
                     <TouchableOpacity
                         activeOpacity={.5}
                         style={[styles.button, {
-                            backgroundColor: '#d93149'
-                        }]}>
+                            backgroundColor: '#55efc4'
+                        }]}
+                        onPress={() => props.navigation.navigate('Register')}>
                         <FontAwesome5 name="user-plus" size={20} color="#fff" />
                         <Text style={styles.buttonText}>CREER UN COMPTE</Text>
                     </TouchableOpacity>
@@ -49,7 +60,7 @@ const WelcomeNavigator = ({ navigation }) => {
                         style={[styles.button, {
                             backgroundColor: '#1A1A1A'
                         }]}
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={() => props.navigation.navigate('Login')}
                         >
                         <FontAwesome5 name="sign-in-alt" size={20} color="#fff" />
                         <Text style={styles.buttonText}>CONNEXION</Text>
